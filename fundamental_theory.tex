@@ -3,6 +3,7 @@
 \usepackage{ascmac}
 \usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry}
 \usepackage{amsfonts}
+\usepackage{amsmath}
 
 \title{代数学の基本定理 まとめノート}
 \author{Takahiro Nukui}
@@ -14,11 +15,93 @@
 \tableofcontents
 
 \newpage
+
+\section{はじめに}
+このまとめノートは「代数学の基本定理」（共立出版　著者：Benjamin Fine、Gerhard Rosenberger、訳者：新妻弘、木村哲三）の中の難しそうな演習問題や定理の証明の補足などをまとめたものです。\date{\today}現在、この本を用いてほそぼそと勉強会を開いているので、ご興味のある方はどなたでもご連絡ください。一緒に読んでいきましょう!
+
+\newpage
+
+
 \section{複素数(2章)}
 \subsection{演習問題2.8}
-演習問題２．８の証明をここでする。そのために４つの公理を提示し、それらが互いに等しいことを証明する。
+演習問題２．８の回答を記す。そのために４つの公理を提示し、それらが互いに等しいことを証明する。\\
 
-\begin{itembox}[l]{\textbf{区間縮小法}}
+
+ すべての数を$A,B$の二組に分けて、Aに属する各数を$B$に属する各数よりも小さくすることができたとするとき、このような組み分け、$(A,B)$を\textbf{切断}といい、$A$を下組、$B$を上組という。
+\begin{itembox}[l]{\textbf{公理：Dedekindの定理}}
+実数の切断は、下組と上組との境界として、一つの数を確定する。
 \end{itembox}
+\textbf{補足}\\
+すなわち、切断$(A,B)$が与えられた時、一つの数$s$が存在して、$s$は$A$の最大数または$B$の最小数であり、前者では$B$に最小数はなく、後者では$A$に最大数がない。
+\\
+\\
+
+
+集合$S$に属する数がすべて一つの数$M$よりも大でないときには、$S$は上方に有界であるといい、$M$をその一つの上界という。式で書くと
+\[\exists M\in\mathbb{R},\forall x\in S[x\leq M] \Longleftrightarrow Sは上方に有界\]
+上界の集合に最小元が存在すれば、それを上限と呼ぶ。
+\begin{itembox}[l]{\textbf{公理：Weierstrassの定理}}
+数の集合$S$が上方[または下方]に有界ならば、$S$の上限[または下限]が存在する。
+\end{itembox}
+\textbf{"Dedekindの定理$\Longrightarrow$Weierstrassの定理"の証明}\\
+$S$は上方に有界であると仮定して、上限の存在を証明する。
+
+$S$は上方に有界なので、以下のような空でない集合$A$が取れ\footnote{このような$x\in A$が上界の定義である}、$A$以外の実数の全てを$B$とする。
+\[A=\{x|\forall y\in S [y\leq x]\}\]
+\[B=\mathbb{R}\backslash A=\{x|\exists y\in S [x<y]\}\]
+任意の$A$の元の値は、任意の$B$の元の値以上になっているので、$A$と$B$は実数の切断になっている。Dedekindの定理によって、$A$と$B$の境界となる$s$が存在する。\\
+$s\in B$とすると、
+\[\exists a\in S　[s< a]\]
+このような$a$と$s$の中間点にある一つの数を$b　(s<b<a)$とすると、$b$は$a$よりも小さいので上界ではない($x\notin A$)。また$s$よりも大きいので$x\notin B$。よって矛盾。\\
+結局、$s\in A$が示される。$s$は上界の集合の中で最小なので、上限である。$S$が下方に有界の場合も同様に示される。(証明終了)
+\\
+\\
+
+
+\begin{itembox}[l]{\textbf{公理：有界な単調数列の収束}}
+有界なる単調数列は収束する。
+\end{itembox}
+\textbf{"Weierstrassの定理$\Longrightarrow$有界な単調数列の収束"の証明}\\
+数列${a_n}$が有界で、広義に単調増加するとする。つまり
+\[a_1\leq a_2 \leq a_3 \leq ・・・\leq a_n \leq・・・\]
+で、任意の$n$に関して$a_n\leq M$なる定数$M$が存在する。\\Weierstrassの定理により、$\{a_n\}$の集合には、上限$\alpha$が存在する。$\alpha$が上限であることと、$\{a_n\}$が単調増加することから、
+\[\forall \alpha'<\alpha, \exists n_0 [n\ge n_0 \Rightarrow \alpha'<a_n]\]
+$\alpha-\alpha'=\epsilon$とみれば、
+\[\forall \epsilon>0, \exists n_0 [n\ge n_0 \Rightarrow \epsilon>\alpha-a_n]\]
+となり、$\{a_n\}$が$\alpha$に収束することが示された。(証明終了)\\
+\\
+\\
+
+\begin{itembox}[l]{\textbf{公理：区間縮小法の原理}}
+$\{I_n\}$が$I_{n+1}\subset I_n$を満たす閉区間の列で、その区間の長さが0に収束するならば、すべての区間に共通なただ一つの点$x_0$が存在する。
+\end{itembox}
+\textbf{"有界な単調数列の収束$\Longrightarrow$区間縮小法の原理"の証明}\\
+$I_n=[a_n,b_n]$とすると、
+\[a_1\leq a_2 \leq a_3 \leq ・・・\leq a_n \leq ・・・\leq b_n \leq ・・・\leq b_2\leq b_1\]
+すなわち、数列$\{a_n\},\{b_n\}$は単調でかつ有界である。有界な単調数列は収束するので、
+\[\lim_{n\to\infty}a_n=\alpha,　\lim_{n\to\infty}b_n=\beta\]
+となる$\alpha$と$\beta$が存在する。区間の長さが$0$に収束することから$\alpha=\beta$。\\
+任意の$n$に関して$a_n\leq\alpha\leq b_n$だから、$\alpha$はすべての区間に属する。また、$\alpha$が$\{a_n\}$の上限、$\{b_n\}$の下限であることから、$\alpha$以外に各区間に共通な点は存在しない。(証明終了)
+\\
+\\
+
+最後に区間縮小法の原理からDedekindの公理を導けば、４つの公理がすべて同値であることが示せる。
+\textbf{"区間縮小法の原理$\Longrightarrow$Dedekindの公理"の証明}\\
+$(A,B)$を実数の切断とする。$A,B$から一対の数$a_0,b_0$を取り出して、区間$[a_0,b_0]$を$I_0$と名付ける。以下
+\[I_n=[a_n,b_n]\]
+\[
+  a_{n+1}=\begin{cases}
+    a_n　(\frac{a_n+b_n}{2}\in Bのとき)\\
+    \frac{a_n+b_n}{2}(\frac{a_n+b_n}{2}\in Aのとき)
+  \end{cases}
+\]\\
+\[
+  b_{n+1}=\begin{cases}
+     \frac{a_n+b_n}{2}(\frac{a_n+b_n}{2}\in Bのとき)\\
+    b_n(\frac{a_n+b_n}{2}\in Aのとき)
+  \end{cases}
+\]
+このように、区間を定義すれば、
+$\{I_n\}$が$I_{n+1}\subset I_n$を満たし、その区間の長さが$0$に収束するので、区間縮小法の原理により、ただ一つの点$x_0$が存在する。この$x_0$は$A$と$B$の境界になっている。(証明終了)
 
 \end{document}
